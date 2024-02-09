@@ -1,0 +1,35 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  background: black;
+  color: #333333;
+  font-size: 1rem;
+  font-family: monospace;
+}
+canvas {
+  display: block;
+  margin: 0 auto;
+}
+header, footer {
+  margin: 0 auto;
+  padding: 30px;
+}
+header {
+  text-align: center;
+  font-size: 2rem;
+}
+footer {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: left;
+}
+.signature {
+  text-align: right;
+}
+a:link, a:visited {
+  color: gray;
+  text-decoration: none;
+}
+a:hover {
+  color: white;
+}

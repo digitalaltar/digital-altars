@@ -1,0 +1,57 @@
+{
+  "imgArray": [
+    "./backgrounds/da-bg01.png",
+    "./backgrounds/da-bg02.png",
+    "./backgrounds/da-bg03.png",
+    "./backgrounds/da-bg04.png",
+    "./backgrounds/da-bg05.png",
+    "./backgrounds/da-bg06.png",
+    "./backgrounds/da-bg07.png",
+    "./backgrounds/da-bg08.png",
+    "./backgrounds/da-bg09.png",
+    "./backgrounds/da-bg10.png"
+  ],
+  "img2Array": [
+    "./overlays/da-ol-01.png",
+    "./overlays/da-ol-02.png",
+    "./overlays/da-ol-03.png",
+    "./overlays/da-ol-04.png",
+    "./overlays/da-ol-05.png",
+    "./overlays/da-ol-06.png",
+    "./overlays/da-ol-07.png",
+    "./overlays/da-ol-08.png",
+    "./overlays/da-ol-09.png"
+  ],
+  "soundArray":[
+    "./sounds/angelical.mp3",
+    "./sounds/cue.mp3",
+    "./sounds/distant.mp3",
+    "./sounds/morphed.mp3",
+    "./sounds/place.mp3",
+    "./sounds/space.mp3",
+    "./sounds/whoosh.mp3"
+  ],
+  "digital": [
+    "Electronic", 
+    "Computerized", 
+    "Virtual", 
+    "Online", 
+    "Cyber",
+    "Technological",
+    "Digitalized",
+    "Computer-Generated",
+    "Networked",
+    "Multimedia"
+  ],
+  "altar": [
+    "Shrine", 
+    "Sanctuary", 
+    "Temple", 
+    "Altar",
+    "Ritual",
+    "Ceremony",
+    "Prayer",
+    "Offering",
+    "Meditation"
+  ]
+}
