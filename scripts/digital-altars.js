@@ -8,6 +8,8 @@ let scrolling = true; // Variable to control scrolling
 let scrollSpeed = 2; // Initial scrolling speed
 let blendModeName; // Variable to store the selected blend mode
 let angle = 0;
+let loadingProgress = 0;
+let totalAssets; // Total number of assets to be loaded
 
 // Define the aspect ratio of your images
 const imageAspectRatio = 1 / 1; // Example aspect ratio (adjust as needed)
@@ -25,41 +27,65 @@ const blendModes = [
 let mySound;
 
 function preload() {
-  loadJSON("./data.json", function (data) {
-    imgArray = data.imgArray.map((url) => loadImage(url));
-    img2Array = data.img2Array.map((url) => loadImage(url));
+  loadJSON("./data.json", function(data) {
+    totalAssets = data.imgArray.length + data.img2Array.length + 1; // +1 for the sound
+    data.imgArray.forEach((url) => {
+      imgArray.push(loadImage(url, () => {
+        loadingProgress++;
+      }));
+    });
+    data.img2Array.forEach((url) => {
+      img2Array.push(loadImage(url, () => {
+        loadingProgress++;
+      }));
+    });
 
-    // Now load a random sound from the soundArray
     let soundUrls = data.soundArray;
     let randomSoundUrl = random(soundUrls); // Select a random sound URL
-    mySound = loadSound(randomSoundUrl);
+    mySound = loadSound(randomSoundUrl, () => {
+      loadingProgress++;
+    });
   });
 }
 
 function setup() {
-  // Calculate the canvas size based on the aspect ratio of your images
-  let canvasWidth, canvasHeight;
-  if (windowWidth / windowHeight > imageAspectRatio) {
-    canvasHeight = windowHeight;
-    canvasWidth = canvasHeight * imageAspectRatio;
+
+  if (loadingProgress < totalAssets) {
+    // Display a loading screen with a progress bar
+    background(0);
+    textSize(32);
+    fill(255);
+    text('Loading...', 10, 30);
+    // Draw the loading bar
+    noStroke();
+    fill(255, 0, 0);
+    let barWidth = (width / totalAssets) * loadingProgress;
+    rect(0, height / 2 - 10, barWidth, 20);
   } else {
-    canvasWidth = windowWidth;
-    canvasHeight = canvasWidth / imageAspectRatio;
-  }
+    // Calculate the canvas size based on the aspect ratio of your images
+    let canvasWidth, canvasHeight;
+    if (windowWidth / windowHeight > imageAspectRatio) {
+      canvasHeight = windowHeight;
+      canvasWidth = canvasHeight * imageAspectRatio;
+    } else {
+      canvasWidth = windowWidth;
+      canvasHeight = canvasWidth / imageAspectRatio;
+    }
 
-  createCanvas(canvasWidth, canvasHeight, WEBGL);
-  buffer = createGraphics(canvasWidth, canvasHeight);
+    createCanvas(canvasWidth, canvasHeight, WEBGL);
+    buffer = createGraphics(canvasWidth, canvasHeight);
 
-  selectedImg = random(imgArray);
-  selectedImg2 = random(img2Array);
-  blendModeName = random(blendModes); // Select a random blend mode name
+    selectedImg = random(imgArray);
+    selectedImg2 = random(img2Array);
+    blendModeName = random(blendModes); // Select a random blend mode name
 
-  // Resize both sets of images to fit the canvas
-  for (let i = 0; i < imgArray.length; i++) {
-    imgArray[i].resize(canvasWidth, 0); // Resize the images to fit the canvas width
-  }
-  for (let i = 0; i < img2Array.length; i++) {
-    img2Array[i].resize(canvasWidth, 0); // Resize the second set of images to fit the canvas width
+    // Resize both sets of images to fit the canvas
+    for (let i = 0; i < imgArray.length; i++) {
+      imgArray[i].resize(canvasWidth, 0); // Resize the images to fit the canvas width
+    }
+    for (let i = 0; i < img2Array.length; i++) {
+      img2Array[i].resize(canvasWidth, 0); // Resize the second set of images to fit the canvas width
+    }
   }
 }
 
@@ -167,6 +193,8 @@ function touchStarted() {
   if (getAudioContext().state !== "running") {
     getAudioContext().resume();
   }
-  toggleSound();
-  return false; // Prevent default browser behavior and event bubbling
+  if (mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
+    toggleSound();
+    return false; // Prevent default behavior only within the canvas area
+  }
 }

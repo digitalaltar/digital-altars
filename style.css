@@ -2,13 +2,21 @@ html, body {
   margin: 0;
   padding: 0;
   background: black;
-  color: #333333;
+  color: gray;
   font-size: 1rem;
   font-family: monospace;
+}
+a:link, a:visited {
+  color: white;
+  text-decoration: none;
+}
+a:hover {
+  color: yellow;
 }
 canvas {
   display: block;
   margin: 0 auto;
+  text-align: center;
 }
 header, footer {
   margin: 0 auto;
@@ -18,18 +26,22 @@ header {
   text-align: center;
   font-size: 2rem;
 }
-footer {
-  max-width: 800px;
+section {
+  padding: 30px 5%;
   margin: 0 auto;
   text-align: left;
 }
-.signature {
+footer {
   text-align: right;
+  font-size: .8rem;
+  letter-spacing: .02rem;
 }
-a:link, a:visited {
-  color: gray;
-  text-decoration: none;
-}
-a:hover {
+footer a:link, footer a:visited {
+  background: gray;
   color: white;
+  padding: 5px 10px;
+}
+footer a:hover {
+  background: white;
+  color: black;
 }
